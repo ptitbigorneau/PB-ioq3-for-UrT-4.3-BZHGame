@@ -1,0 +1,5 @@
+^2INFO: ^3Info: ^5Pub Function by PtitBigorneau^7
+^2INFO: ^3Current Map: ^5@map^7
+^2INFO: ^5My mom always said life was like a box of chocolates. You never know what you're gonna get.^7
+^2INFO: ^3Next Map: ^5@nextmap^7
+^2INFO: ^3Time: ^5@time^7
