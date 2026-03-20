@@ -1446,7 +1446,7 @@ static void PB_BZHGameScores( client_t *aclient,  client_t *vclient, int idweap 
                     char *colorpoints = "^1";
                     if (vclient->pbpoints+1 > 0) {textpoints = "points"; colorpoints = "^2";}
                     SV_SendServerCommand(vclient, "chat\"^3[PM]: ^7Level %i finished with %s%i %s \"\n", vclient->pblevel, colorpoints, vclient->pbpoints+1, textpoints);
-                    SV_SendServerCommand(NULL, "cp\"%s%s^7: Level %i finished with %s%i %s \"\n", cvteam, vclient->name, vclient->pblevel, colorpoints, vclient->pbpoints+1, textpoints);
+                    SV_SendServerCommand(NULL, "cp\"%s%s^7: ^1Level %i^7 finished with %s%i %s \"\n", cvteam, vclient->name, vclient->pblevel, colorpoints, vclient->pbpoints+1, textpoints);
                     vclient->pbpoints = 0;
                     vclient->pblevel = vclient->pblevel + 1;
                     vclient->pbcycle = vclient->pbcycle + 1;
