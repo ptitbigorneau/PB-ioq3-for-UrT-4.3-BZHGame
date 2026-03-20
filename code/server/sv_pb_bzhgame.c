@@ -1634,6 +1634,10 @@ PB_EventItem
 */
 void PB_EventItem(char event[1024])
 {
+    if (sv_gametype->integer == 9){ return; }
+
+    Cmd_TokenizeString( event );
+    
     if (pb_BZHGame->integer == 1) {
         if (atoi(Cmd_Argv(1)) < 100) {
             client_t *cl = PB_SearchUser(atoi(Cmd_Argv(1)));
