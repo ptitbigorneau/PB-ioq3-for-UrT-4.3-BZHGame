@@ -1097,24 +1097,24 @@ void PB_SpawnControl( void ) {
             if (level > 5) { level = level - (5 * cl->pbcycle); }
             
             if (level == 1) {
-                SV_SendServerCommand(cl, "cp \"^7Level %i (%i/%i): All weapons allowed\"\n", cl->pblevel, cl->pbpoints, 4+cl->pbcycle);
+                SV_SendServerCommand(cl, "cp \"^4Level %i ^7(^4%i/%i^7): All weapons allowed\"\n", cl->pblevel, cl->pbpoints, 4+cl->pbcycle);
             }
             if (level == 2) {
-                SV_SendServerCommand(cl, "cp \"^7Level %i (%i/%i): No primary weapons\"\n", cl->pblevel, cl->pbpoints, 3+cl->pbcycle);
+                SV_SendServerCommand(cl, "cp \"^6Level %i ^7(^6%i/%i^7): No primary weapons\"\n", cl->pblevel, cl->pbpoints, 3+cl->pbcycle);
                 PB_SwitchSlotWeapon(cl);
             }
             else if (level == 3) {
-                SV_SendServerCommand(cl, "cp \"^7Level %i (%i/%i): No primary and secondary weapons\"\n", cl->pblevel, cl->pbpoints, 2+cl->pbcycle);
+                SV_SendServerCommand(cl, "cp \"^5Level %i ^7(^5%i/%i^7): No primary and secondary weapons\"\n", cl->pblevel, cl->pbpoints, 2+cl->pbcycle);
                 PB_SwitchSlotWeapon(cl);
             }
             else if (level == 4) {
-                SV_SendServerCommand(cl, "cp \"^7Level %i (%i/%i): Knife only\"\n", cl->pblevel, cl->pbpoints, 1);
+                SV_SendServerCommand(cl, "cp \"^2Level %i ^7(^2%i/%i^7): Knife only\"\n", cl->pblevel, cl->pbpoints, 1);
                 ps->weapon = 0;
                 PB_GiveKevlar( cl );
                 PB_GiveMedkit( cl );
             }
             else if (level == 5) {
-                SV_SendServerCommand(cl, "cp \"^7Level %i : TOD50 only\"\n", cl->pblevel);
+                SV_SendServerCommand(cl, "cp \"^1Level %i ^7: TOD50 only\"\n", cl->pblevel);
                 ps->powerups[0] = 283+16777216;
                 ps->weapon = 0;
             }
@@ -1144,7 +1144,7 @@ void PB_GameControl( void ) {
 }
 /*
 ===============================================================================================================================================================
-PB Events
+PB CheckDeadorAlive KillDistance BZHGameScores
 ===============================================================================================================================================================
 */
 /*
