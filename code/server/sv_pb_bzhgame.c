@@ -1108,7 +1108,7 @@ void PB_SpawnControl( void ) {
                 PB_SwitchSlotWeapon(cl);
             }
             else if (level == 4) {
-                SV_SendServerCommand(cl, "cp \"^2Level %i ^7(^2%i/%i^7): Knife only\"\n", cl->pblevel, cl->pbpoints, 1);
+                SV_SendServerCommand(cl, "cp \"^2Level %i ^7(^2%i/%i^7): Knife-Only\"\n", cl->pblevel, cl->pbpoints, 1);
                 ps->weapon = 0;
                 PB_GiveKevlar( cl );
                 PB_GiveMedkit( cl );
@@ -1434,7 +1434,7 @@ static void PB_BZHGameScores( client_t *aclient,  client_t *vclient, int idweap 
 
                     if (vclient->pbpoints < 0) {
                         vclient->pbpoints = 0;
-                        //SV_SendServerCommand(vclient, "chat\"^3[PM]: ^7Level %i (%i/%i)\"\n", vclient->pblevel, vclient->pbpoints, 1);
+                        SV_SendServerCommand(vclient, "chat\"^3[PM]: ^2Too Hard For You! ^5Command: ^7!toohardforme ^5or ^7!thfm \"\n");
                     }
                     /*else {
                         SV_SendServerCommand(vclient, "chat\"^3[PM]: ^7Level %i (%i/%i)\"\n", vclient->pblevel, vclient->pbpoints, 1);
@@ -1446,7 +1446,7 @@ static void PB_BZHGameScores( client_t *aclient,  client_t *vclient, int idweap 
                     char *colorpoints = "^1";
                     if (vclient->pbpoints+1 > 0) {textpoints = "points"; colorpoints = "^2";}
                     SV_SendServerCommand(vclient, "chat\"^3[PM]: ^7Level %i finished with %s%i %s \"\n", vclient->pblevel, colorpoints, vclient->pbpoints+1, textpoints);
-                    SV_SendServerCommand(NULL, "cp\"%s%s^7: ^1Level %i^7 finished with %s%i %s \"\n", cvteam, vclient->name, vclient->pblevel, colorpoints, vclient->pbpoints+1, textpoints);
+                    SV_SendServerCommand(NULL, "cp\"%s%s^7: ^1Level %i ^7finished with %s%i %s \"\n", cvteam, vclient->name, vclient->pblevel, colorpoints, vclient->pbpoints+1, textpoints);
                     vclient->pbpoints = 0;
                     vclient->pblevel = vclient->pblevel + 1;
                     vclient->pbcycle = vclient->pbcycle + 1;
@@ -1460,6 +1460,73 @@ static void PB_BZHGameScores( client_t *aclient,  client_t *vclient, int idweap 
         }
     }
 }
+/*
+===============================================================================================================================
+PB Commandes
+===============================================================================================================================
+*/
+/*
+==============================
+PB Commande Too_Hard_For_Me
+==============================
+*/
+void PB_TooHardForMe(client_t *cl) 
+{
+    playerState_t  *ps = SV_GameClientNum( cl - svs.clients );
+
+    int team = ps->persistant[PERS_TEAM];
+
+    char cname[64];
+    Q_strncpyz(cname, cl->name, sizeof(cname));
+    Q_CleanStr(cname);
+
+    if (team == 3)
+    {
+	    SV_SendServerCommand(cl, "chat\"^3[PM]: ^7Nice try, but spectators can't use this command.\"\n");
+        return;
+    }
+
+    char *cteam = PB_SearchColorTeam(team);
+    
+    int kill = ps->persistant[PERS_SCORE];
+    int death = ps->persistant[PERS_KILLED];
+    
+    int level = cl->pblevel;
+	int colorlevel;
+	
+    if (level > 5) { level = level - (5 * cl->pbcycle); }
+
+	if (level == 1) {colorlevel = 4;}
+	else if (level == 2) {colorlevel = 6;}
+	else if (level == 3) {colorlevel = 5;}
+	else if (level == 4) {colorlevel = 2;}
+	else if (level == 5) {colorlevel = 1;}
+
+	if (level == 1 || level == 2 || level == 3) {
+	    SV_SendServerCommand(cl, "chat\"^3[PM]: ^%iLevel %i ^7- Have courage! You can do it!\"\n", colorlevel , level);
+	    SV_SendServerCommand(cl, "chat\"^3[PM]: ^7Return to ^4level 1^7. This is only possible in the Knife-Only Level.\"\n");
+	}
+    else if (level == 4) {
+        if ((kill - death) < 0 ) {
+            cl->pblevel = 1;
+	        char *cmd = "kill";
+	        Cmd_TokenizeString(cmd);
+            SV_SendServerCommand(cl, "chat\"^3[PM]: ^1Too Hard For You! ^7Oups! Back to ^4level 1^7\"\n");
+            SV_SendServerCommand(NULL, "print\"^6Too Hard For Him! %s%s ^7is back on level 1\"\n", cteam, cname);
+            VM_Call(gvm, GAME_CLIENT_COMMAND, cl - svs.clients);
+        }
+        else {
+            SV_SendServerCommand(cl, "cp\"^3[PM]: ^%iLevel %i^7 - Have courage! You can do it!\"\n", colorlevel , level);
+        }
+
+    }
+    else {
+        SV_SendServerCommand(NULL, "cp\"%s%s^7: ^%iLevel %i^7- Too Hard For Him, apparently!^7\"\n", cteam, cl->name, colorlevel , level);
+    }
+}
+/*
+===============================================================================================================================
+*/
 /*
 =====================================================================
 PB_Events

@@ -2776,8 +2776,8 @@ static void PB_BZHPutLevel5_f(void) {
 		ps = SV_GameClientNum( cl - svs.clients );
 		cl->pblevel = 5;
         cl->pbcycle = 0;
-		ps->powerups[0] = 283+16777216;
 		ps->weapon = 0;
+		ps->powerups[0] = 283+16777216;
   	}
 }
 /*

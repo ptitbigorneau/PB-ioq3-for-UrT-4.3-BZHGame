@@ -3,3 +3,4 @@
 ^2INFO: ^5My mom always said life was like a box of chocolates. You never know what you're gonna get.^7
 ^2INFO: ^3Next Map: ^5@nextmap^7
 ^2INFO: ^3Time: ^5@time^7
+^2Too Hard For You: ^3Type Command: ^7!toohardforme ^5or ^7!thfm^7
