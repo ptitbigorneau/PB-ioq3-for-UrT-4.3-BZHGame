@@ -1641,24 +1641,15 @@ PB
 PB Commande Too_Hard_For_Me
 ===============================================================================================================================
 */
-                char *cp = Cmd_Args();
-                cp = strtok(cp, " ");
+        char *cp = Cmd_Args();
+        cp = strtok(cp, " ");
 
-                if (Q_stricmp("!toohardforme", cp) == 0)
-
-                {
-                
-                PB_TooHardForMe( cl );              
-                
-                }
-
-                if (Q_stricmp("!thfm", cp) == 0)
-
-                {
-                
-                PB_TooHardForMe( cl );              
-                
-                }
+		if (Q_stricmp("!toohardforme", cp) == 0) {
+			PB_TooHardForMe( cl );
+		}
+        if (Q_stricmp("!thfm", cp) == 0) {
+			PB_TooHardForMe( cl );
+		}
 	}
 	else if (!bProcessed) {
 		Com_DPrintf( "client text ignored for %s: %s\n", cl->name, Cmd_Argv(0) );
