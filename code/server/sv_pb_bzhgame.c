@@ -829,12 +829,12 @@ PB_GiveLaser
 PB_NukeClient
 =======================
 */
-static void PB_NukeClient(client_t *cl) {
+/*static void PB_NukeClient(client_t *cl) {
     char cmd[64];
     int clid = cl - svs.clients;
     Com_sprintf(cmd, sizeof(cmd), "nuke %i\n", clid);
     Cmd_ExecuteString(cmd);
-}
+}*/
 /*
 ===============================================================================================================================================================
 PB_ControlWeapons
@@ -1114,7 +1114,7 @@ void PB_SpawnControl( void ) {
                 PB_GiveMedkit( cl );
             }
             else if (level == 5) {
-                SV_SendServerCommand(cl, "cp \"^1Level %i ^7: TOD50 only\"\n", cl->pblevel);
+                SV_SendServerCommand(cl, "cp \"^1Level %i ^7: TOD50-Only\"\n", cl->pblevel);
                 ps->powerups[0] = 283+16777216;
                 ps->weapon = 0;
             }
@@ -1391,7 +1391,7 @@ static void PB_BZHGameScores( client_t *aclient,  client_t *vclient, int idweap 
                     if (idweap == 46) {
                         aclient->pbpoints = aclient->pbpoints + 1;
                         aclient->pbscore = aclient->pbscore + 1;
-                        if (aclient->pbpoints > 19 ) { PB_NukeClient(aclient); }
+                        //if (aclient->pbpoints > 19 ) { PB_NukeClient(aclient); }
                     }
                 }
 
@@ -1512,7 +1512,7 @@ void PB_TooHardForMe(client_t *cl)
 	        char *cmd = "kill";
 	        Cmd_TokenizeString(cmd);
             SV_SendServerCommand(cl, "chat\"^3[PM]: ^1Too Hard For You! ^7Oups! Back to ^4level 1^7\"\n");
-            SV_SendServerCommand(NULL, "print\"^6Too Hard For Him! %s%s ^7is back on level 1\"\n", cteam, cname);
+            SV_SendServerCommand(NULL, "print\"^2Too Hard For Him! %s%s ^7is back on level 1\"\n", cteam, cname);
             VM_Call(gvm, GAME_CLIENT_COMMAND, cl - svs.clients);
         }
         else {

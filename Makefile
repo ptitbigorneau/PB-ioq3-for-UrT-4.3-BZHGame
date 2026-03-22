@@ -854,7 +854,7 @@ endif #SunOS
 TARGETS =
 
 ifneq ($(BUILD_SERVER),0)
-  TARGETS += $(B)/Quake3-UrT-Ded.$(ARCH)$(BINEXT)
+  TARGETS += $(B)/Quake3-UrT-BZHGame-Ded.$(ARCH)$(BINEXT)
 endif
 
 ifneq ($(BUILD_CLIENT),0)
@@ -1438,7 +1438,7 @@ ifeq ($(HAVE_VM_COMPILED),true)
   endif
 endif
 
-$(B)/Quake3-UrT-Ded.$(ARCH)$(BINEXT): $(Q3DOBJ)
+$(B)/Quake3-UrT-BZHGame-Ded.$(ARCH)$(BINEXT): $(Q3DOBJ)
 	$(echo_cmd) "LD $@"
 	$(Q)$(CC) -o $@ $(Q3DOBJ) $(LDFLAGS)
 
@@ -1866,8 +1866,8 @@ endif
 #endif
 
 ifneq ($(BUILD_SERVER),0)
-	@if [ -f $(BR)/Quake3-UrT-Ded.$(ARCH)$(BINEXT) ]; then \
-		$(INSTALL) -s -m 0755 $(BR)/Quake3-UrT-Ded.$(ARCH)$(BINEXT) $(COPYDIR)/Quake3-UrT-Ded.$(ARCH)$(BINEXT); \
+	@if [ -f $(BR)/Quake3-UrT-BZHGame-Ded.$(ARCH)$(BINEXT) ]; then \
+		$(INSTALL) -s -m 0755 $(BR)/Quake3-UrT-BZHGame-Ded.$(ARCH)$(BINEXT) $(COPYDIR)/Quake3-UrT-BZHGame-Ded.$(ARCH)$(BINEXT); \
 	fi
 endif
 
