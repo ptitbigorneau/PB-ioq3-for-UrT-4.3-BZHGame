@@ -620,6 +620,38 @@ char *PB_BotFemaleName(int id) {
 
 }
 //////////////////////////
+// PB_BotMaleName
+//////////////////////////
+char *PB_BotMaleName(int id) {
+
+    if ( id == 1 ) {
+        return "^5Banana";
+    }
+    else if ( id == 3 ) {
+        return "^5Kevin";
+    }
+    else if ( id == 5 ) {
+        return "^5Bob";
+    }
+    else if ( id == 7 ) {
+        return "^5Stuart";
+    }
+    else if ( id == 9 ) {
+        return "^5Jerry";
+    }
+    else if ( id == 11 ) {
+        return "^5Tim";
+    }
+    else if ( id == 13 ) {
+        return "^5Otto";
+    }
+    else if ( id == 15 ) {
+        return "^5Carl";
+    }
+    else {return "^5Victor";}
+
+}
+//////////////////////////
 // PB_BotArmbandColor
 //////////////////////////
 char *PB_BotArmbandColor(int id) {
@@ -1662,10 +1694,10 @@ void PB_EventClientBegin(char event[1024])
             char *armband = PB_BotArmbandColor(atoi(Cmd_Argv(1)));
             if (atoi(Cmd_Argv(1))%2) {
                 
-                char *color ="^5";
-                char name[64];
-                strcpy(name, color);
-                strcat(name, cl->name);
+                //char *color ="^5";
+                char *name = PB_BotMaleName(atoi(Cmd_Argv(1)));
+                //strcpy(name, color);
+                //strcat(name, cl->name);
                 Info_SetValueForKey(cl->userinfo, "name", name);
                 Info_SetValueForKey(cl->userinfo, "racered", "3");
                 Info_SetValueForKey(cl->userinfo, "raceblue", "3");
