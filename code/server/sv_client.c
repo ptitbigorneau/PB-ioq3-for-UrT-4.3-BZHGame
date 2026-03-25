@@ -494,7 +494,7 @@ PB
 	newcl->pbpoints = 0;
 	newcl->pblevel = 1;
 	newcl->pbcycle = 0;
-	newcl->pbscore = 0;
+	newcl->pbkilltod50 = 0;
     newcl->weapsecond = -1;
 /*
 ===================================================================

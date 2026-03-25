@@ -2587,9 +2587,9 @@ static void PB_BZHGameLevel_f(void) {
             if (level > 5) { level = level - (5 * cl->pbcycle); }
 		    if (level != 5) {
                 int lp = PB_SearchLevel(level, cl->pbcycle);
-			    Com_Printf("%s^7: Level %i (%i/%i) [%i]\n", cl->name, cl->pblevel, cl->pbpoints, lp, cl->pbscore);
+			    Com_Printf("%s^7: Level %i (%i/%i) [%i]\n", cl->name, cl->pblevel, cl->pbpoints, lp, cl->pbkilltod50);
 		    }
-		    else { Com_Printf("%s^7: Level %i (%i) [%i]\n", cl->name, cl->pblevel, cl->pbpoints, cl->pbscore);}
+		    else { Com_Printf("%s^7: Level %i (%i) [%i]\n", cl->name, cl->pblevel, cl->pbpoints, cl->pbkilltod50);}
         }
         return;		
     }
@@ -2601,9 +2601,9 @@ static void PB_BZHGameLevel_f(void) {
         if (level > 5) { level = level - (5 * cl->pbcycle); }
 		if (level != 5) {
             int lp = PB_SearchLevel(level, cl->pbcycle);
-            Com_Printf("%s^7: Level %i (%i/%i) [%i]\n", cl->name, cl->pblevel, cl->pbpoints, lp, cl->pbscore);
+            Com_Printf("%s^7: Level %i (%i/%i) [%i]\n", cl->name, cl->pblevel, cl->pbpoints, lp, cl->pbkilltod50);
 		}
-		else { Com_Printf("%s^7: Level %i (%i) [%i]\n", cl->name, cl->pblevel, cl->pbpoints, cl->pbscore);}
+		else { Com_Printf("%s^7: Level %i (%i) [%i]\n", cl->name, cl->pblevel, cl->pbpoints, cl->pbkilltod50);}
     }
         
 }
@@ -2634,7 +2634,7 @@ static void PB_B3BZHGameLevel_f(void) {
     cl = SV_GetPlayerByHandle();
  
     if (cl) {
-        Com_Printf("%i %i %i %i \n", cl->pbcycle, cl->pblevel, cl->pbpoints, cl->pbscore);
+        Com_Printf("%i %i %i %i \n", cl->pbcycle, cl->pblevel, cl->pbpoints, cl->pbkilltod50);
     }
         
 }
@@ -2716,7 +2716,7 @@ static void PB_BZHGameResetLevel_f(void) {
             cl->pbcycle = 0;
 			cl->pblevel = 1;
             cl->pbpoints = 0;
-            cl->pbscore = 0;
+            cl->pbkilltod50 = 0;
 	        level = cl->pblevel;
             if (level > 5) { level = level - (5 * cl->pbcycle); }
 		    if (level != 5) {
@@ -2736,7 +2736,7 @@ static void PB_BZHGameResetLevel_f(void) {
         cl->pbcycle = 0;
 		cl->pblevel = 1;
         cl->pbpoints = 0;
-        cl->pbscore = 0;
+        cl->pbkilltod50 = 0;
 	    level = cl->pblevel;
         if (level > 5) { level = level - (5 * cl->pbcycle); }
 		if (level != 5) {

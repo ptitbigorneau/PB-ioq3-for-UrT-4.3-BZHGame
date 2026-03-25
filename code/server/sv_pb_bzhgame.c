@@ -730,6 +730,17 @@ char *PB_SearchColorTeam(int n) {
     }
     else {return NULL;}
 }
+//////////////////////////
+// PB_SearColorLevel
+//////////////////////////
+int PB_SearColorLevel(int level) {
+	if (level == 1) {return 4;}
+	else if (level == 2) {return 6;}
+	else if (level == 3) {return 5;}
+	else if (level == 4) {return 2;}
+	else if (level == 5) {return 1;}
+	else {return 3;}
+}
 /*
 =======================
 PB_SaveWeapons
@@ -1330,7 +1341,7 @@ static void PB_BZHGameScores( client_t *aclient,  client_t *vclient, int idweap 
 
     if (alevel > 5) { alevel = alevel - (5 * aclient->pbcycle); }
     if (vlevel > 5) { vlevel = vlevel - (5 * vclient->pbcycle); }
-    
+
     if (aclient - svs.clients != vclient - svs.clients || idweap == 7 || idweap == 35) {
 
         if (sv_gametype->integer == 0 || sv_gametype->integer == 1 || sv_gametype->integer == 7 || idweap == 7 || idweap == 35) {
@@ -1349,17 +1360,17 @@ static void PB_BZHGameScores( client_t *aclient,  client_t *vclient, int idweap 
                     aclient->pbpoints = aclient->pbpoints + 1;
 
                     if (aclient->pbpoints >= 4+aclient->pbcycle) {
-                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^7Level %i (%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 4+aclient->pbcycle);
+                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^4Level %i ^7(%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 4+aclient->pbcycle);
                         aclient->pbpoints = 0;
                         aclient->pblevel = aclient->pblevel + 1;
-                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^7New Level: Level %i\"\n", aclient->pblevel);
-                        SV_SendServerCommand(NULL, "print\"%s%s ^7is now a level %i\"\n", cateam, acname, aclient->pblevel);
+                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^7New Level: ^6Level %i^7\"\n", aclient->pblevel);
+                        SV_SendServerCommand(NULL, "print\"%s%s ^7is now a ^6Level %i^7\"\n", cateam, acname, aclient->pblevel);
                         PB_SwitchSlotWeapon(aclient);
                         PB_RechargeWeapons(aclient, -1);
                         PB_GiveHealth( aclient );
                     }
                     else {
-                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^7Level %i (%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 4+aclient->pbcycle);
+                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^4Level %i ^7(%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 4+aclient->pbcycle);
                     }
                 }
                 else if (alevel == 2 && idweap != 23 && idweap != 7) {
@@ -1367,17 +1378,17 @@ static void PB_BZHGameScores( client_t *aclient,  client_t *vclient, int idweap 
                     aclient->pbpoints = aclient->pbpoints + 1;
 
                     if (aclient->pbpoints >= 3+aclient->pbcycle) {
-                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^7Level %i (%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 3+aclient->pbcycle);
+                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^6Level %i ^7(%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 3+aclient->pbcycle);
                         aclient->pbpoints = 0;
                         aclient->pblevel = aclient->pblevel + 1;
-                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^7New Level: Level %i\"\n", aclient->pblevel);
-                        SV_SendServerCommand(NULL, "print\"%s%s ^7is now a level %i\"\n", cateam, acname, aclient->pblevel);
+                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^7New Level: ^5Level %i^7\"\n", aclient->pblevel);
+                        SV_SendServerCommand(NULL, "print\"%s%s ^7is now a ^%iLevel 5^7\"\n", cateam, acname, aclient->pblevel);
                         PB_SwitchSlotWeapon(aclient);
                         PB_RechargeWeapons(aclient, -1);
                         PB_GiveHealth( aclient );
                     }
                     else {
-                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^7Level %i (%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 3+aclient->pbcycle);
+                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^6Level %i ^7(%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 3+aclient->pbcycle);
                     }
                 }
                 else if (alevel == 3 && idweap != 23 && idweap != 7) {
@@ -1385,18 +1396,18 @@ static void PB_BZHGameScores( client_t *aclient,  client_t *vclient, int idweap 
                     aclient->pbpoints = aclient->pbpoints + 1;
 
                     if (aclient->pbpoints >= 2+aclient->pbcycle) {
-                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^7Level %i (%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 2+aclient->pbcycle);
+                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^5Level %i ^7(%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 2+aclient->pbcycle);
                         aclient->pbpoints = 0;
                         aclient->pblevel = aclient->pblevel + 1;
-                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^7New Level: Level %i\"\n", aclient->pblevel);
-                        SV_SendServerCommand(NULL, "print\"%s%s ^7is now a level %i\"\n", cateam, acname, aclient->pblevel);
+                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^7New Level: ^2Level %i^7\"\n", aclient->pblevel);
+                        SV_SendServerCommand(NULL, "print\"%s%s ^7is now a ^2Level %i^7\"\n", cateam, acname, aclient->pblevel);
                         aps->weapon = 0;
                         PB_GiveHealth( aclient );
                         PB_GiveKevlar( aclient );
                         PB_GiveMedkit( aclient );
                     }
                     else {
-                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^7Level %i (%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 2+aclient->pbcycle);
+                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^5Level %i ^7(%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 2+aclient->pbcycle);
                     }
                 }
                 else if (alevel == 4 && idweap != 23 && idweap != 7) {
@@ -1405,25 +1416,25 @@ static void PB_BZHGameScores( client_t *aclient,  client_t *vclient, int idweap 
                         aclient->pbpoints = aclient->pbpoints + 1;
 
                         if (aclient->pbpoints >= 1) {
-                           SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^7Level %i (%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 1);
+                           SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^2Level %i ^7(%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 1);
                            aclient->pbpoints = 0;
                            aclient->pblevel = aclient->pblevel + 1;
-                           SV_SendServerCommand(aclient, "chat\"^3[PM]: ^7New Level: Level %i\"\n", aclient->pblevel);
-                           SV_SendServerCommand(NULL, "print\"%s%s ^7is now a level %i\"\n", cateam, acname, aclient->pblevel);
+                           SV_SendServerCommand(aclient, "chat\"^3[PM]: ^7New Level: ^1Level %i^7\"\n", aclient->pblevel);
+                           SV_SendServerCommand(NULL, "print\"%s%s ^7is now a ^1Level %i^7\"\n", cateam, acname, aclient->pblevel);
                            aps->powerups[0] = 283+16777216;
                            PB_GiveHealth( aclient );
 
                         }
                         else {
-                            SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^7Level %i (%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 1);
+                            SV_SendServerCommand(aclient, "chat\"^3[PM]: ^2[+1 point] ^2Level %i ^7(%i/%i)\"\n", aclient->pblevel, aclient->pbpoints, 1);
                        }
                     }
                 }
                 else if (alevel == 5 && idweap != 7) {
                     if (idweap == 46) {
                         aclient->pbpoints = aclient->pbpoints + 1;
-                        aclient->pbscore = aclient->pbscore + 1;
-                        //if (aclient->pbpoints > 19 ) { PB_NukeClient(aclient); }
+                        aclient->pbkilltod50 = aclient->pbkilltod50 + 1;
+                        SV_SendServerCommand(aclient, "chat\"^3[PM]: ^1Level %i ^7- TOD50: ^2%i ^7Kill(s)\"\n", aclient->pblevel, aclient->pbkilltod50);
                     }
                 }
 
@@ -1436,18 +1447,18 @@ static void PB_BZHGameScores( client_t *aclient,  client_t *vclient, int idweap 
                 if (vlevel == 1) {
 
                     if (vclient->pbpoints < 0) { vclient->pbpoints = 0; }
-                    else {SV_SendServerCommand(vclient, "chat\"^3[PM]: ^1[-1 point] ^7Level %i (%i/%i)\"\n", vclient->pblevel, vclient->pbpoints, 4+vclient->pbcycle);}
+                    else {SV_SendServerCommand(vclient, "chat\"^3[PM]: ^1[-1 point] ^4Level %i ^7(%i/%i)\"\n", vclient->pblevel, vclient->pbpoints, 4+vclient->pbcycle);}
                 }
                 else if (vlevel == 2) {
 
                     if (vclient->pbpoints < 0) {
                         vclient->pbpoints = 3+vclient->pbcycle;
                         vclient->pblevel = vclient->pblevel - 1;
-                        SV_SendServerCommand(vclient, "chat\"^3[PM]: ^1[-1 point] ^7Return to Level %i (%i/%i)\"\n", vclient->pblevel, vclient->pbpoints, 4+vclient->pbcycle);
-                        SV_SendServerCommand(NULL, "print\"%s%s ^7returns to level %i\"\n", cvteam, vcname, vclient->pblevel);
+                        SV_SendServerCommand(vclient, "chat\"^3[PM]: ^1[-1 point] ^7Return to ^4Level %i ^7(%i/%i)\"\n", vclient->pblevel, vclient->pbpoints, 4+vclient->pbcycle);
+                        SV_SendServerCommand(NULL, "print\"%s%s ^7returns to ^4Level %i^7\"\n", cvteam, vcname , vclient->pblevel);
                     }
                     else {
-                        SV_SendServerCommand(vclient, "chat\"^3[PM]: ^1[-1 point] ^7Level %i (%i/%i)\"\n", vclient->pblevel, vclient->pbpoints, 3+vclient->pbcycle);
+                        SV_SendServerCommand(vclient, "chat\"^3[PM]: ^1[-1 point] ^6Level %i ^7(%i/%i)\"\n", vclient->pblevel, vclient->pbpoints, 3+vclient->pbcycle);
                     }
                 }
                 else if (vlevel == 3) {
@@ -1455,11 +1466,11 @@ static void PB_BZHGameScores( client_t *aclient,  client_t *vclient, int idweap 
                      if (vclient->pbpoints < 0) {
                         vclient->pbpoints = 2+vclient->pbcycle;
                         vclient->pblevel = vclient->pblevel - 1;
-                        SV_SendServerCommand(vclient, "chat\"^3[PM]: ^1[-1 point] ^7Return to Level %i (%i/%i)\"\n", vclient->pblevel, vclient->pbpoints, 3+vclient->pbcycle);
-                        SV_SendServerCommand(NULL, "print\"%s%s ^7returns to level %i\"\n", cvteam, vcname, vclient->pblevel);
+                        SV_SendServerCommand(vclient, "chat\"^3[PM]: ^1[-1 point] ^7Return to ^6Level %i ^7(%i/%i)\"\n", vclient->pblevel, vclient->pbpoints, 3+vclient->pbcycle);
+                        SV_SendServerCommand(NULL, "print\"%s%s ^7returns to ^6Level %i^7\"\n", cvteam, vcname, vclient->pblevel);
                     }
                     else {
-                        SV_SendServerCommand(vclient, "chat\"^3[PM]: ^1[-1 point] ^7Level %i (%i/%i)\"\n", vclient->pblevel, vclient->pbpoints, 2+vclient->pbcycle);
+                        SV_SendServerCommand(vclient, "chat\"^3[PM]: ^1[-1 point] ^5Level %i ^7(%i/%i)\"\n", vclient->pblevel, vclient->pbpoints, 2+vclient->pbcycle);
                     }
                 }
                 else if (vlevel == 4) {
@@ -1473,21 +1484,19 @@ static void PB_BZHGameScores( client_t *aclient,  client_t *vclient, int idweap 
                     }*/
                 }
                 else if (vlevel == 5) {
-                    if (vclient->pbpoints+1 < 0) { vclient->pbpoints=0;}
+                    if (vclient->pbkilltod50 < 0) { vclient->pbkilltod50=0;}
                     char *textpoints = "point";
                     char *colorpoints = "^1";
-                    if (vclient->pbpoints+1 > 0) {textpoints = "points"; colorpoints = "^2";}
-                    SV_SendServerCommand(vclient, "chat\"^3[PM]: ^7Level %i finished with %s%i %s \"\n", vclient->pblevel, colorpoints, vclient->pbpoints+1, textpoints);
-                    SV_SendServerCommand(NULL, "cp\"%s%s^7: ^1Level %i ^7finished with %s%i %s \"\n", cvteam, vclient->name, vclient->pblevel, colorpoints, vclient->pbpoints+1, textpoints);
+                    if (vclient->pbkilltod50 > 0) {textpoints = "points"; colorpoints = "^2";}
+                    SV_SendServerCommand(vclient, "chat\"^3[PM]: ^1Level %i ^7finished with %s%i %s \"\n", vclient->pblevel, colorpoints, vclient->pbkilltod50, textpoints);
+                    SV_SendServerCommand(NULL, "cp\"%s%s^7: ^1Level %i ^7finished with %s%i %s \"\n", cvteam, vclient->name, vclient->pblevel, colorpoints, vclient->pbkilltod50, textpoints);
                     vclient->pbpoints = 0;
+					//vclient->pbkilltod50 = 0;
                     vclient->pblevel = vclient->pblevel + 1;
                     vclient->pbcycle = vclient->pbcycle + 1;
-                    SV_SendServerCommand(vclient, "chat\"^3[PM]: ^7New Level %i (%i/%i)\"\n", vclient->pblevel, vclient->pbpoints, 4+vclient->pbcycle);
-                    SV_SendServerCommand(NULL, "print\"%s%s ^7is now a level %i\"\n", cvteam, vcname, vclient->pblevel);
-
-
+                    SV_SendServerCommand(vclient, "chat\"^3[PM]: ^7New ^4Level %i ^7(%i/%i)\"\n", vclient->pblevel, vclient->pbpoints, 4+vclient->pbcycle);
+                    SV_SendServerCommand(NULL, "print\"%s%s ^7is now a ^4Level %i^7\"\n", cvteam, vcname, vclient->pblevel);
                 }
-
             }
         }
     }
@@ -1522,17 +1531,10 @@ void PB_TooHardForMe(client_t *cl)
     
     int kill = ps->persistant[PERS_SCORE];
     int death = ps->persistant[PERS_KILLED];
-    
     int level = cl->pblevel;
-	int colorlevel;
 	
     if (level > 5) { level = level - (5 * cl->pbcycle); }
-
-	if (level == 1) {colorlevel = 4;}
-	else if (level == 2) {colorlevel = 6;}
-	else if (level == 3) {colorlevel = 5;}
-	else if (level == 4) {colorlevel = 2;}
-	else if (level == 5) {colorlevel = 1;}
+	int colorlevel = PB_SearColorLevel(level);
 
 	if (level == 1 || level == 2 || level == 3) {
 	    SV_SendServerCommand(cl, "chat\"^3[PM]: ^%iLevel %i ^7- Have courage! You can do it!\"\n", colorlevel , level);
@@ -1657,7 +1659,7 @@ void PB_EventClientSpawn(char event[1024])
                 cl->pbpoints = 0;
                 cl->pblevel = 1;
                 cl->pbcycle = 0;
-                cl->pbscore = 0;
+                cl->pbkilltod50 = 0;
                 cl->weapsecond = -1;
             }
             cl->spawntime = svs.time;
@@ -1757,4 +1759,57 @@ void PB_EventItem(char event[1024])
             PB_RechargeWeapons( cl, idweapp );
         }
     }
+}
+/*
+=======================
+PB_EventExit
+=======================
+*/
+void PB_EventExit(char event[1024])
+{
+
+	int i;
+    client_t *cl;
+    int toplevel = 1;
+    int toplevelplus = 1;
+    char *toplayer = "";
+    int kills = 0;
+    int colorlevel = 4;
+
+    if (sv_gametype->integer == 9) {
+         return; 
+    }
+
+    for (i = 0, cl = svs.clients; i < sv_maxclients->integer; i++, cl++) {
+
+        if (!cl->state) {
+            continue;
+        }
+        if ( cl->netchan.remoteAddress.type != NA_BOT ) {
+            if (cl->pblevel > toplevel) {
+                toplevelplus = cl->pblevel - (5 * cl->pbcycle);
+                toplevel = cl->pblevel;
+			}
+		}
+    }
+
+    for (i = 0, cl = svs.clients; i < sv_maxclients->integer; i++, cl++) {
+
+        if (!cl->state) {
+            continue;
+        }
+        if ( cl->netchan.remoteAddress.type != NA_BOT ) {
+            if (cl->pblevel - (5 * cl->pbcycle) == toplevelplus) {
+                colorlevel = PB_SearColorLevel(toplevelplus);
+                SV_SendServerCommand(NULL, "chat\"^3BZH Game ^2Top^7:%s ^%iLevel %i^7 - Score: ^2%i ^7Point(s)\"\n", cl->name, colorlevel, cl->pblevel, cl->pbkilltod50);
+			    if (cl->pblevel > 5) { toplevelplus = cl->pblevel - (5 * cl->pbcycle); }
+			    if (cl->pbkilltod50 > kills) {
+                    kills = cl->pbkilltod50;
+			        toplayer = cl->name;
+                    toplevel = cl->pblevel;
+                }
+			}
+		}
+    }
+	SV_SendServerCommand(NULL, "cp\"^3BZH Game ^2Best Player^7:%s ^%iLevel %i^7- Score: ^2%i ^7Point(s)\"\n", toplayer, colorlevel, toplevel, cl->pbkilltod50);
 }

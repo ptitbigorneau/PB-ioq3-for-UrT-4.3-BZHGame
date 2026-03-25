@@ -198,7 +198,7 @@ PB
 	float spawnposition[2];
 	int pbcycle;
     int powerups[MAX_POWERUPS];
-	int pbscore;
+	int pbkilltod50;
     int weapsecond;
 /*
 ===================================================================
@@ -473,6 +473,7 @@ void PB_EventClientBegin(char event[1024]);
 void PB_EventKill(char event[1024]);
 void PB_EventHit(char event[1024]);
 void PB_EventItem(char event[1024]);
+void PB_EventExit(char event[1024]);
 void PB_GameControl( void );
 void PB_ControlWeapons( client_t *cl );
 void PB_TooHardForMe(client_t *cl);
