@@ -1811,5 +1811,5 @@ void PB_EventExit(char event[1024])
 			}
 		}
     }
-	SV_SendServerCommand(NULL, "cp\"^3BZH Game ^2Best Player^7:%s ^%iLevel %i^7- Score: ^2%i ^7Point(s)\"\n", toplayer, colorlevel, toplevel, cl->pbkilltod50);
+	SV_SendServerCommand(NULL, "cp\"^3BZH Game ^2Best Player^7:%s ^%iLevel %i^7- Score: ^2%i ^7Point(s)\"\n", toplayer, colorlevel, toplevel, kills);
 }
