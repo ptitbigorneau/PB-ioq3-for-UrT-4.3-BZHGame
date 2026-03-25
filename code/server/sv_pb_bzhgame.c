@@ -1382,7 +1382,7 @@ static void PB_BZHGameScores( client_t *aclient,  client_t *vclient, int idweap 
                         aclient->pbpoints = 0;
                         aclient->pblevel = aclient->pblevel + 1;
                         SV_SendServerCommand(aclient, "chat\"^3[PM]: ^7New Level: ^5Level %i^7\"\n", aclient->pblevel);
-                        SV_SendServerCommand(NULL, "print\"%s%s ^7is now a ^%iLevel 5^7\"\n", cateam, acname, aclient->pblevel);
+                        SV_SendServerCommand(NULL, "print\"%s%s ^7is now a ^5Level %i^7\"\n", cateam, acname, aclient->pblevel);
                         PB_SwitchSlotWeapon(aclient);
                         PB_RechargeWeapons(aclient, -1);
                         PB_GiveHealth( aclient );
@@ -1543,6 +1543,7 @@ void PB_TooHardForMe(client_t *cl)
     else if (level == 4) {
         if ((kill - death) < 0 ) {
             cl->pblevel = 1;
+            cl->pbpoints = 0;
 	        char *cmd = "kill";
 	        Cmd_TokenizeString(cmd);
             SV_SendServerCommand(cl, "chat\"^3[PM]: ^1Too Hard For You! ^7Oups! Back to ^4level 1^7\"\n");
@@ -1801,7 +1802,9 @@ void PB_EventExit(char event[1024])
         if ( cl->netchan.remoteAddress.type != NA_BOT ) {
             if (cl->pblevel - (5 * cl->pbcycle) == toplevelplus) {
                 colorlevel = PB_SearColorLevel(toplevelplus);
-                SV_SendServerCommand(NULL, "chat\"^3BZH Game ^2Top^7:%s ^%iLevel %i^7 - Score: ^2%i ^7Point(s)\"\n", cl->name, colorlevel, cl->pblevel, cl->pbkilltod50);
+                if (cl->pbkilltod50 > 0) {
+                    SV_SendServerCommand(NULL, "chat\"^3BZH Game ^2Top^7:%s ^%iLevel %i^7 - Score: ^2%i ^7Point(s)\"\n", cl->name, colorlevel, cl->pblevel, cl->pbkilltod50);
+                }
 			    if (cl->pblevel > 5) { toplevelplus = cl->pblevel - (5 * cl->pbcycle); }
 			    if (cl->pbkilltod50 > kills) {
                     kills = cl->pbkilltod50;
@@ -1811,5 +1814,7 @@ void PB_EventExit(char event[1024])
 			}
 		}
     }
-	SV_SendServerCommand(NULL, "cp\"^3BZH Game ^2Best Player^7:%s ^%iLevel %i^7- Score: ^2%i ^7Point(s)\"\n", toplayer, colorlevel, toplevel, kills);
+    if (kills > 0) {
+	    SV_SendServerCommand(NULL, "cp\"^3BZH Game ^2Best Player^7:%s ^%iLevel %i^7- Score: ^2%i ^7Point(s)\"\n", toplayer, colorlevel, toplevel, kills);
+	}
 }
