@@ -1638,7 +1638,7 @@ PB
 		}
 /*
 ===============================================================================================================================
-PB Commande Too_Hard_For_Me
+PB Commandes Too_Hard_For_Me - Rules
 ===============================================================================================================================
 */
         char *cp = Cmd_Args();
@@ -1649,6 +1649,9 @@ PB Commande Too_Hard_For_Me
 		}
         if (Q_stricmp("!thfm", cp) == 0) {
 			PB_TooHardForMe( cl );
+		}
+        if (Q_stricmp("!rules", cp) == 0) {
+			PB_Rules( cl );
 		}
 	}
 	else if (!bProcessed) {
