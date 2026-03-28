@@ -1469,7 +1469,7 @@ static ucmd_t ucmds_floodControl[] = {
 
 	{"toohardforme", PB_TooHardForMe},
 	{"thfm", PB_TooHardForMe},
-	{"rules", PB_Rules,
+	{"rules", PB_Rules},
 	{NULL, NULL}
 };
 /*
